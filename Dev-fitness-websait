@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dev Fitness</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#101418;
+  color:white;
+}
+
+header{
+  background:linear-gradient(135deg,#00c853,#00e676);
+  padding:20px;
+  text-align:center;
+}
+
+header h1{
+  font-size:32px;
+}
+
+nav{
+  background:#171d22;
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  padding:12px;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+nav a{
+  color:white;
+  text-decoration:none;
+  padding:10px 13px;
+  border-radius:8px;
+}
+
+nav a:hover{
+  background:#00c853;
+}
+
+.hero{
+  min-height:350px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:30px;
+  background:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.75)),
+  url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1200&q=80");
+  background-size:cover;
+  background-position:center;
+}
+
+.hero h2{
+  font-size:40px;
+  margin-bottom:15px;
+}
+
+.btn{
+  background:#00e676;
+  color:#07120b;
+  border:none;
+  padding:12px 20px;
+  border-radius:25px;
+  font-weight:bold;
+  cursor:pointer;
+  margin-top:15px;
+}
+
+section{
+  padding:35px 20px;
+  max-width:1100px;
+  margin:auto;
+}
+
+.title{
+  text-align:center;
+  margin-bottom:25px;
+  color:#00e676;
+  font-size:28px;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:18px;
+}
+
+.card{
+  background:#1b2228;
+  padding:22px;
+  border-radius:15px;
+  text-align:center;
+  box-shadow:0 5px 15px rgba(0,0,0,.3);
+}
+
+.card h3{
+  margin:10px 0;
+  color:#00e676;
+}
+
+.card p{
+  color:#ccc;
+  line-height:1.5;
+}
+
+.exercise-icon{
+  font-size:45px;
+}
+
+.timer-box,.bmi-box,.progress-box{
+  background:#1b2228;
+  padding:25px;
+  border-radius:15px;
+  text-align:center;
+  max-width:500px;
+  margin:auto;
+}
+
+#timer{
+  font-size:55px;
+  margin:15px;
+  color:#00e676;
+}
+
+input{
+  width:100%;
+  padding:12px;
+  margin:8px 0;
+  border:none;
+  border-radius:8px;
+  background:#2b333a;
+  color:white;
+}
+
+.progress-bar{
+  width:100%;
+  height:25px;
+  background:#303840;
+  border-radius:20px;
+  overflow:hidden;
+  margin:15px 0;
+}
+
+.progress-fill{
+  height:100%;
+  width:0%;
+  background:#00e676;
+  transition:.5s;
+}
+
+footer{
+  text-align:center;
+  padding:25px;
+  background:#080b0d;
+  color:#aaa;
+}
+
+.small{
+  color:#aaa;
+  margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>💪 DEV FITNESS</h1>
+  <p>Train • Stay Fit • Stay Strong</p>
+</header>
+
+<nav>
+  <a href="#home">Home</a>
+  <a href="#workout">Workout</a>
+  <a href="#timer">Timer</a>
+  <a href="#bmi">BMI</a>
+  <a href="#progress">Progress</a>
+</nav>
+
+<section class="hero" id="home">
+  <h2>🔥 Become Stronger Every Day</h2>
+  <p>अपने फिटनेस सफर की शुरुआत आज से करें!</p>
+  <button class="btn" onclick="document.getElementById('workout').scrollIntoView()">
+    Start Workout
+  </button>
+</section>
+
+<section id="workout">
+  <h2 class="title">🏋️ Workout Exercises</h2>
+
+  <div class="cards">
+
+    <div class="card">
+      <div class="exercise-icon">🏃</div>
+      <h3>Running</h3>
+      <p>हल्की या मध्यम गति से दौड़ने का अभ्यास करें।</p>
+    </div>
+
+    <div class="card">
+      <div class="exercise-icon">💪</div>
+      <h3>Push Ups</h3>
+      <p>ऊपरी शरीर की ताकत के लिए push-ups करें।</p>
+    </div>
+
+    <div class="card">
+      <div class="exercise-icon">🦵</div>
+      <h3>Squats</h3>
+      <p>पैरों और शरीर की ताकत के लिए squats।</p>
+    </div>
+
+    <div class="card">
+      <div class="exercise-icon">🤸</div>
+      <h3>Stretching</h3>
+      <p>Workout से पहले और बाद में हल्की stretching करें।</p>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <h2 class="title">⏱️ Workout Timer</h2>
+
+  <div class="timer-box">
+    <div id="timer">00:30</div>
+
+    <button class="btn" onclick="startTimer()">Start</button>
+    <button class="btn" onclick="resetTimer()">Reset</button>
+
+    <p class="small">30 सेकंड का workout timer</p>
+  </div>
+</section>
+
+<section id="bmi">
+  <h2 class="title">📊 BMI Calculator</h2>
+
+  <div class="bmi-box">
+    <input type="number" id="height" placeholder="Height (cm)">
+    <input type="number" id="weight" placeholder="Weight (kg)">
+
+    <button class="btn" onclick="calculateBMI()">Calculate BMI</button>
+
+    <h3 id="bmiResult" style="margin-top:20px;"></h3>
+  </div>
+</section>
+
+<section id="progress">
+  <h2 class="title">📈 Fitness Progress</h2>
+
+  <div class="progress-box">
+    <h3 id="progressText">0% Complete</h3>
+
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <button class="btn" onclick="increaseProgress()">
+      +10% Progress
+    </button>
+
+    <button class="btn" onclick="resetProgress()">
+      Reset
+    </button>
+  </div>
+</section>
+
+<section>
+  <h2 class="title">🥗 Healthy Habits</h2>
+
+  <div class="cards">
+
+    <div class="card">
+      <h3>💧 Water</h3>
+      <p>दिनभर पर्याप्त पानी पीने की आदत रखें।</p>
+    </div>
+
+    <div class="card">
+      <h3>🥦 Healthy Food</h3>
+      <p>फल, सब्जियाँ और संतुलित भोजन लें।</p>
+    </div>
+
+    <div class="card">
+      <h3>😴 Sleep</h3>
+      <p>अच्छी नींद शरीर की recovery के लिए जरूरी है।</p>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <h3>💪 DEV FITNESS</h3>
+  <p>Made with HTML, CSS & JavaScript</p>
+  <p>© 2026 Dev Fitness</p>
+</footer>
+
+<script>
+
+/* TIMER */
+let time = 30;
+let timerInterval = null;
+
+function updateTimer(){
+  let seconds = time < 10 ? "0" + time : time;
+  document.getElementById("timer").innerText = "00:" + seconds;
+}
+
+function startTimer(){
+
+  if(timerInterval) return;
+
+  timerInterval = setInterval(function(){
+
+    if(time > 0){
+      time--;
+      updateTimer();
+    }else{
+      clearInterval(timerInterval);
+      timerInterval = null;
+      alert("🎉 Workout Complete!");
+    }
+
+  },1000);
+}
+
+function resetTimer(){
+  clearInterval(timerInterval);
+  timerInterval = null;
+  time = 30;
+  updateTimer();
+}
+
+/* BMI */
+function calculateBMI(){
+
+  let height = parseFloat(document.getElementById("height").value);
+  let weight = parseFloat(document.getElementById("weight").value);
+
+  if(!height || !weight){
+    document.getElementById("bmiResult").innerText =
+    "कृपया Height और Weight भरें।";
+    return;
+  }
+
+  let h = height / 100;
+  let bmi = weight / (h*h);
+
+  document.getElementById("bmiResult").innerText =
+  "BMI: " + bmi.toFixed(1);
+}
+
+/* PROGRESS */
+let progress = 0;
+
+function increaseProgress(){
+
+  progress += 10;
+
+  if(progress > 100){
+    progress = 100;
+  }
+
+  document.getElementById("progressFill").style.width =
+  progress + "%";
+
+  document.getElementById("progressText").innerText =
+  progress + "% Complete";
+}
+
+function resetProgress(){
+
+  progress = 0;
+
+  document.getElementById("progressFill").style.width = "0%";
+
+  document.getElementById("progressText").innerText =
+  "0% Complete";
+}
+
+updateTimer();
+
+</script>
+
+</body>
+</html>
